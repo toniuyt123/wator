@@ -1,0 +1,22 @@
+1. Сашо - 3d model na curkva, rosen skas
+2. Тони - redaktor za 3d grafika za mobilen telefon, mitov
+3. Биби - 3d model na chasovnikovata kula v trqvna, rosen skas
+4. Вальо - 3d model na starinna kushta, rosen skas
+5. Влади - streaming site kato twitch, mitov
+6. Дани - zaedno sivona jira belejnika, po web krokodil
+7. Илиян - sait za neshto
+8. Драганов - b4a shit
+9. Виячки - 3d model na manastir, rosen skas
+10. Ивона - s dani v kombina
+11. Коко - printera deto e mashina, vitanov
+12. Коки - sait za neshto
+13. Мими - 3d model na ptica vduhnovena ot pticite ot avatar, rosen skas
+14. Марти - simulation station, blago
+15. Миши - smart akvarium, vitanov
+16. Пепса - sait za neshto
+17. Пешо - biblioteka za ml na rust, blago
+18. Рети - dispenser za hapcheta, vitanov
+19. Мони Чакъров - sait za neshto
+20. Спас - sait za formuli za avtomobili
+21. Тери - pixel sandbox physics simulator, ketipov
+22. Тоско - sait za pokupko prodajva na bordovi igri
