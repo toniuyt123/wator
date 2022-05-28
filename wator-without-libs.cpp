@@ -6,23 +6,25 @@
 #include <sstream>
 #include <cstdlib>
 #include <ctime>
-#include <SFML/Graphics.hpp>
 #include <time.h>
 #include <algorithm>
 #include <chrono>
 #include <thread>
+#include <condition_variable>
+/*#include <SFML/Graphics.hpp>
 #include <boost/program_options.hpp>
 #include <filesystem>
-#include <condition_variable>
 
 namespace po = boost::program_options;
-namespace fs = std::filesystem;
+namespace fs = std::filesystem;*/
 
 const int SHARK_TYPE = 1;
 const int FISH_TYPE = 2;
-const sf::Color emptyCell(3, 23, 252);
+/*const sf::Color emptyCell(3, 23, 252);
 const sf::Color fishColor(255, 110, 204);
-const sf::Color sharkColor(255, 238, 0);
+const sf::Color sharkColor(255, 238, 0);*/
+int fishColor = 2;
+int sharkColor = 3;
 const int animDelay = 100;
 const std::string outputDir = "images-output";
 
@@ -46,9 +48,9 @@ class Cell {
 public:
     int type;
     int age = 0;
-    sf::Color color;
+    int color;
 
-    Cell(int _type, sf::Color _color) : type(_type), color(_color) {
+    Cell(int _type, int _color) : type(_type), color(_color) {
         age = simulationAge;
     };
 
@@ -220,14 +222,14 @@ std::unique_lock globalLk(globalMutex);
 std::condition_variable globalCv;
 int completedThreads = 0;
 
-void computeRegion(int index, sf::RenderWindow *window) 
+void computeRegion(int index)//, sf::RenderWindow *window) 
 {
     int regionWidth = Nx / threads;
     int startRow = regionWidth * index;
     int endRow = index == threads - 1 ? Nx : startRow + regionWidth;
 
     //std::cout << "Thread " << index << " computing from row " << startRow << " to " << endRow << std::endl;
-    sf::Vector2u windowSizes = window->getSize();
+    //sf::Vector2u windowSizes = window->getSize();
     int prevIndex = index-1 == -1 ? threads - 1 : index-1;
     int nextIndex = index+1 == threads ? 0 : index+1;
 
@@ -333,7 +335,7 @@ void computeRegion(int index, sf::RenderWindow *window)
     }
     return;
 }
-
+/*
 bool handleOptions(int argc, char *argv[]) {
     po::options_description desc("Allowed options");
     desc.add_options()
@@ -399,18 +401,19 @@ bool handleOptions(int argc, char *argv[]) {
         << "Chronons: " << simulationDuration << std::endl;
 
     return true;
-}
+}*/
 
 int main(int argc, char *argv[])
 {
+    threads = atoi(argv[1]);
     globalMutex.unlock();
 
-    if(! handleOptions(argc, argv)) {
+    /*if(! handleOptions(argc, argv)) {
         return 1;
-    }
+    }*/
     initializeSimulation();
 
-    sf::RenderWindow window(sf::VideoMode(gridX, gridY), "WaTor");
+    /*sf::RenderWindow window(sf::VideoMode(gridX, gridY), "WaTor");
     window.setVisible(!isDryRun);
     sf::Vector2u windowSizes = window.getSize();
 
@@ -419,7 +422,7 @@ int main(int argc, char *argv[])
             std::cout << "Could not create gif" << std::endl;
             return -1;
         }
-    }
+    }*/
 
     std::vector<std::thread> workers;
 
@@ -429,7 +432,7 @@ int main(int argc, char *argv[])
     auto start = std::chrono::steady_clock::now();
     for (int i = 0; i < threads; i++) {
         threadAges.push_back(0);
-        workers.push_back(std::thread(computeRegion, i, &window));
+        workers.push_back(std::thread(computeRegion, i));//, &window));
     }
     for (int i = 0; i < threads; i++) {
         workers[i].join();
@@ -442,9 +445,9 @@ int main(int argc, char *argv[])
               << "Threads: " << threads << ", Chronons: " << simulationDuration << std::endl
               << "Dry-run: " << isDryRun << ", Make gif:" << makeGif << std::endl;
 
-    if (window.isOpen()) {
+    /*if (window.isOpen()) {
         window.close();
-    }
+    }*/
 
     return 0;
 }
