@@ -285,7 +285,7 @@ void computeRegion(int index, sf::RenderWindow *window)
             }*/
 
             // SFML logic
-            /*sf::Event event;
+            sf::Event event;
             while (window->pollEvent(event)) {
                 if (event.type == sf::Event::Closed)
                     window->close();
@@ -304,10 +304,10 @@ void computeRegion(int index, sf::RenderWindow *window)
                 }
             }
 
-            window->display();*/
+            window->display();
 
             // Make Gif
-            /*if (!makeGif) {
+            if (!makeGif) {
                 continue;
             }
 
